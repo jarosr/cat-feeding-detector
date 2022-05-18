@@ -1,5 +1,4 @@
 from __future__ import annotations
-import math
 import PIL.Image
 from fastapi import FastAPI, UploadFile, File
 import os
@@ -60,7 +59,7 @@ def detect_feeding_cat_object(yolo_objects: dict) -> bool:
     return cat and cat.confidence > 0.4
 
 
-def create_history_record(timestamp: int, filename: str, yolo_objects: list) -> dict:
+def create_history_record(timestamp: int, filename: str, yolo_objects: dict) -> dict:
     return {
         'timestamp': float(timestamp) / 1000,
         'filename': filename,
@@ -167,7 +166,7 @@ def convert_current_datetime_to_int() -> int:
     return int(datetime.now().replace(tzinfo=timezone.utc).timestamp() * 1000)
 
 
-def save_history_record(filename: str, yolo_objects: list) -> None:
+def save_history_record(filename: str, yolo_objects: dict) -> None:
     global history_data
     history_data.values.append(create_history_record(convert_current_datetime_to_int(), filename, yolo_objects))
     history_data.commit()
