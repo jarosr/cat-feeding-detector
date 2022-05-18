@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+*.pt
+/storage
+/detected
+/images
+/false-detected
+
